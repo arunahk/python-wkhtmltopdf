@@ -3,7 +3,7 @@
 import os
 import optparse
 
-class WKhtmlToPdf(object):
+class WKhtmlToPdf():
     """
     Convert an html page via its URL into a pdf.
     """
@@ -39,8 +39,8 @@ class WKhtmlToPdf(object):
             'grayscale': [kwargs.get('grayscale', False), bool],
             'http_username': [kwargs.get('http_username', ""), str],
             'http_password': [kwargs.get('http_password', ""), str],
-            'header_html': [kwargs.get('header_html', None), str],
-            'footer_html': [kwargs.get('footer_html', None), str]
+            'header_html': [kwargs.get('header_html', ""), str],
+            'footer_html': [kwargs.get('footer_html', ""), str]
         }
         
         for k, v in self.defaults.items():
@@ -73,8 +73,10 @@ class WKhtmlToPdf(object):
             option_list.append("--username %s" % self.http_username)
         if self.http_password:
             option_list.append("--password %s" % self.http_password)
-        option_list.append("--orientation %s" % self.orientation)
-        option_list.append("--dpi %s" % self.dpi)
+        if self.orientation:
+            option_list.append("--orientation %s" % self.orientation)
+        if self.dpi:
+            option_list.append("--dpi %s" % self.dpi)
         if self.header_html:
             option_list.append("--header-html %s" % self.header_html)
         if self.footer_html:
@@ -120,17 +122,17 @@ if __name__ == '__main__':
     usage = "Usage: %prog [options] url output_file"
     parser = optparse.OptionParser()
     
-    parser.add_option("-F", "--flash-plugin", action="store_true", dest="flash_plugin", default=True, help="use flash plugin")
-    parser.add_option("-J", "--disable-javascript", action="store_true", dest="disable_javascript", default=False, help="disable javascript")
-    parser.add_option("-b", "--no-background", action="store_true", dest="no_background", default=False, help="do not print background")
-    parser.add_option("-g", "--grayscale", action="store_true", dest="grayscale", default=False, help="make grayscale")
-    parser.add_option("-d", "--redirect-delay", dest="delay", default=0, help="page delay before convertion")
-    parser.add_option("-O", "--orientation", dest="orientation", default='Portrait', help="page orientation")
-    parser.add_option("-D", "--dpi", dest="dpi", default=100, help="print dpi")
-    parser.add_option("-U", "--username", dest="http_username", default="", help="http username")
-    parser.add_option("-P", "--password", dest="http_password", default="", help="http password")
-    parser.add_option("-h", "--header-html", dest="header_html", default="", help="url to the header html")
-    parser.add_option("-f", "--footer-html", dest="footer_html", default="", help="url to the footer html")
+    parser.add_option("-F", "--flash-plugin", action = "store_true", dest = "flash_plugin", default = True, help = "use flash plugin")
+    parser.add_option("-J", "--disable-javascript", action = "store_true", dest = "disable_javascript", default = False, help = "disable javascript")
+    parser.add_option("-b", "--no-background", action = "store_true", dest = "no_background", default = False, help = "do not print background")
+    parser.add_option("-g", "--grayscale", action = "store_true", dest = "grayscale", default = False, help = "make grayscale")
+    parser.add_option("-d", "--redirect-delay", dest = "delay", default = 0, help = "page delay before convertion")
+    parser.add_option("-O", "--orientation", dest = "orientation", default = 'Portrait', help = "page orientation")
+    parser.add_option("-D", "--dpi", dest = "dpi", default = 100, help = "print dpi")
+    parser.add_option("-U", "--username", dest = "http_username", default = "", help = "http username")
+    parser.add_option("-P", "--password", dest = "http_password", default = "", help = "http password")
+    parser.add_option("-h", "--header-html", dest = "header_html", default = "", help = "url to the header html")
+    parser.add_option("-f", "--footer-html", dest = "footer_html", default = "", help = "url to the footer html")
     
     options, args = parser.parse_args()
     
