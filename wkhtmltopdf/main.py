@@ -40,7 +40,10 @@ class WKhtmlToPdf():
             'http_username': [kwargs.get('http_username', ""), str],
             'http_password': [kwargs.get('http_password', ""), str],
             'header_html': [kwargs.get('header_html', ""), str],
-            'footer_html': [kwargs.get('footer_html', ""), str]
+            'footer_html': [kwargs.get('footer_html', ""), str],
+            'print_media_type': [kwargs.get('print_media_type', False), bool],
+            'no_print_media_type': [kwargs.get('no_print_media_type', False), bool],
+            'quiet': [kwargs.get('quiet', False), bool]
         }
         
         for k, v in self.defaults.items():
@@ -81,6 +84,12 @@ class WKhtmlToPdf():
             option_list.append("--header-html %s" % self.header_html)
         if self.footer_html:
             option_list.append("--footer-html %s" % self.footer_html)
+        if self.print_media_type:
+            option_list.append("--print-media-type")
+        if self.no_print_media_type:
+            option_list.append("--no-print-media-type")
+        if self.quiet:
+            option_list.append("--quiet")
         
         return option_list
         
