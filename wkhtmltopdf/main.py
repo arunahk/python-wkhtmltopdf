@@ -70,8 +70,8 @@ class WKhtmlToPdf():
             option_list.append("--no-background")
         if self.grayscale:
             option_list.append("--grayscale")
-        if self.delay:
-            option_list.append("--redirect-delay %s" % self.delay)
+#        if self.delay:
+#            option_list.append("--redirect-delay %s" % self.delay)
         if self.http_username:
             option_list.append("--username %s" % self.http_username)
         if self.http_password:
